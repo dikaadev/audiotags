@@ -28,6 +28,7 @@ impl<'a> From<&'a Mp4Tag> for AnyTag<'a> {
         let genre = inp.genre();
         let composer = inp.composer();
         let comment = inp.comment();
+        let copyright = inp.copyright();
         Self {
             config: inp.config,
             title,
@@ -45,6 +46,7 @@ impl<'a> From<&'a Mp4Tag> for AnyTag<'a> {
             genre,
             composer,
             comment,
+            copyright,
         }
     }
 }
@@ -312,6 +314,16 @@ impl AudioTagEdit for Mp4Tag {
     }
     fn remove_comment(&mut self) {
         self.inner.remove_comments();
+    }
+
+    fn copyright(&self) -> Option<&str> {
+        self.inner.copyright()
+    }
+    fn set_copyright(&mut self, copyright: &str) {
+        self.inner.set_copyright(copyright);
+    }
+    fn remove_copyright(&mut self) {
+        self.inner.remove_copyright();
     }
 }
 

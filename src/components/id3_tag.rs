@@ -25,6 +25,7 @@ impl<'a> From<&'a Id3v2Tag> for AnyTag<'a> {
             genre: inp.genre(),
             composer: inp.composer(),
             comment: inp.comment(),
+            copyright: inp.copyright(),
         }
     }
 }
@@ -256,6 +257,19 @@ impl AudioTagEdit for Id3v2Tag {
     }
     fn remove_comment(&mut self) {
         self.inner.remove("COMM");
+    }
+
+    fn copyright(&self) -> Option<&str> {
+        if let Some(Content::Text(text)) = self.inner.get("TCOP").map(Frame::content) {
+            return Some(text);
+        }
+        None
+    }
+    fn set_copyright(&mut self, copyright: &str) {
+        self.inner.add_frame(Frame::text("TCOP", copyright));
+    }
+    fn remove_copyright(&mut self) {
+        self.inner.remove("TCOP");
     }
 }
 

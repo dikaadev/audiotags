@@ -143,6 +143,10 @@ pub trait AudioTagEdit: AudioTagConfig {
     fn comment(&self) -> Option<&str>;
     fn set_comment(&mut self, genre: String);
     fn remove_comment(&mut self);
+
+    fn copyright(&self) -> Option<&str>;
+    fn set_copyright(&mut self, copyright: &str);
+    fn remove_copyright(&mut self);
 }
 
 pub trait AudioTagWrite {
