@@ -63,6 +63,7 @@ impl<'a> From<&'a FlacTag> for AnyTag<'a> {
             composer: inp.composer(),
             comment: inp.comment(),
             copyright: inp.copyright(),
+            lyrics: inp.lyrics(),
             ..Self::default()
         };
 
@@ -290,6 +291,16 @@ impl AudioTagEdit for FlacTag {
     }
     fn remove_copyright(&mut self) {
         self.remove("COPYRIGHT");
+    }
+
+    fn lyrics(&self) -> Option<&str> {
+        self.get_first("LYRICS")
+    }
+    fn set_lyrics(&mut self, lyrics: &str) {
+        self.set_first("LYRICS", lyrics);
+    }
+    fn remove_lyrics(&mut self) {
+        self.remove("LYRICS");
     }
 }
 

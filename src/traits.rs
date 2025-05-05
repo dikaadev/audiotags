@@ -147,6 +147,10 @@ pub trait AudioTagEdit: AudioTagConfig {
     fn copyright(&self) -> Option<&str>;
     fn set_copyright(&mut self, copyright: &str);
     fn remove_copyright(&mut self);
+
+    fn lyrics(&self) -> Option<&str>;
+    fn set_lyrics(&mut self, lyrics: &str);
+    fn remove_lyrics(&mut self);
 }
 
 pub trait AudioTagWrite {

@@ -29,6 +29,7 @@ impl<'a> From<&'a Mp4Tag> for AnyTag<'a> {
         let composer = inp.composer();
         let comment = inp.comment();
         let copyright = inp.copyright();
+        let lyrics = inp.lyrics();
         Self {
             config: inp.config,
             title,
@@ -47,6 +48,7 @@ impl<'a> From<&'a Mp4Tag> for AnyTag<'a> {
             composer,
             comment,
             copyright,
+            lyrics,
         }
     }
 }
@@ -324,6 +326,16 @@ impl AudioTagEdit for Mp4Tag {
     }
     fn remove_copyright(&mut self) {
         self.inner.remove_copyright();
+    }
+
+    fn lyrics(&self) -> Option<&str> {
+        self.inner.lyrics()
+    }
+    fn set_lyrics(&mut self, lyrics: &str) {
+        self.inner.set_lyrics(lyrics);
+    }
+    fn remove_lyrics(&mut self) {
+        self.inner.remove_lyrics();
     }
 }
 

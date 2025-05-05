@@ -20,6 +20,7 @@ pub struct AnyTag<'a> {
     pub composer: Option<&'a str>,
     pub comment: Option<&'a str>,
     pub copyright: Option<&'a str>,
+    pub lyrics: Option<&'a str>,
 }
 
 impl AudioTagConfig for AnyTag<'_> {

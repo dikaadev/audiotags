@@ -26,6 +26,7 @@ impl<'a> From<&'a Id3v2Tag> for AnyTag<'a> {
             composer: inp.composer(),
             comment: inp.comment(),
             copyright: inp.copyright(),
+            lyrics: inp.lyrics(),
         }
     }
 }
@@ -270,6 +271,20 @@ impl AudioTagEdit for Id3v2Tag {
     }
     fn remove_copyright(&mut self) {
         self.inner.remove("TCOP");
+    }
+
+    fn lyrics(&self) -> Option<&str> {
+        if let Some(lyrics) = self.inner.lyrics().next() {
+            Some(lyrics.text.as_str())
+        } else {
+            None
+        }
+    }
+    fn set_lyrics(&mut self, lyrics: &str) {
+        self.inner.add_frame(Frame::text("USLT", lyrics));
+    }
+    fn remove_lyrics(&mut self) {
+        self.inner.remove("USLT");
     }
 }
 
